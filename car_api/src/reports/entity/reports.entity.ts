@@ -10,7 +10,8 @@ export class Report {
   price: number;
 
   @Column()
-  // make: string;
+  make: string;
+
   @Column()
   year: number;
 
