@@ -21,7 +21,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return await this.userRepo.findOneBy({ id });
+    return await this.userRepo.findOneBy({ id: id });
   }
 
   async findByEmail(email: string) {

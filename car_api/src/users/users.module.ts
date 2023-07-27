@@ -4,10 +4,21 @@ import { UsersService } from './users.service';
 import { UserProviders } from './repo/user.provider';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthService } from './auth/auth.service';
+import { CurrentUserIntercepter } from './intecepter/curr.user.intercepter';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [UsersController],
-  providers: [...UserProviders, UsersService, AuthService],
+  providers: [
+    ...UserProviders,
+    UsersService,
+    AuthService,
+    {
+      // to apply intercepter globaly
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserIntercepter,
+    },
+  ],
 })
 export class UsersModule {}
