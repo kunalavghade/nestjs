@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   Session,
+  UseGuards,
 } from '@nestjs/common';
 import { ResUserDTO, UserDTO, updateUserDTO } from './dto/user.dto';
 import { UsersService } from './users.service';
@@ -15,6 +16,7 @@ import { Serializer } from 'src/intercepter/serialize.intercepter';
 import { AuthService } from './auth/auth.service';
 import { CurrentUser } from './decorators/curr.user.decorator';
 import { User } from './entity/user.entity';
+import { AuthGuard } from 'src/guards/auth.gurd';
 
 @Controller('auth')
 @Serializer(ResUserDTO)
@@ -25,6 +27,7 @@ export class UsersController {
   ) {}
 
   @Get('/my_id')
+  @UseGuards(AuthGuard)
   async agetMe(@CurrentUser() user: User) {
     console.log(user);
     return user;
