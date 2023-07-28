@@ -1,5 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 import {
+  IsBoolean,
   IsLatitude,
   IsLongitude,
   IsNumber,
@@ -36,6 +37,9 @@ export class createReportDTO {
 
 export class ReportDTO {
   @Expose()
+  id: number;
+
+  @Expose()
   price: number;
 
   @Expose()
@@ -56,4 +60,9 @@ export class ReportDTO {
   @Transform(({ obj }) => obj.user.id)
   @Expose()
   userId: number;
+}
+
+export class ApproveReportDTO {
+  @IsBoolean()
+  approve: boolean;
 }

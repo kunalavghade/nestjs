@@ -29,7 +29,6 @@ export class UsersController {
   @Get('/my_id')
   @UseGuards(AuthGuard)
   async agetMe(@CurrentUser() user: User) {
-    console.log(user);
     return user;
   }
 
