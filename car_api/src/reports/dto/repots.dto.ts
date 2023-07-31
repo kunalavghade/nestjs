@@ -66,3 +66,34 @@ export class ApproveReportDTO {
   @IsBoolean()
   approve: boolean;
 }
+
+export class getEstimateDto {
+  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
+  @Min(0)
+  @Max(10000000)
+  price: number;
+
+  @IsString()
+  make: string;
+
+  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
+  @Min(1930)
+  @Max(2050)
+  year: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsLatitude()
+  lat: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsLongitude()
+  lng: number;
+
+  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
+  @Min(0)
+  @Max(100000)
+  mileage: number;
+}

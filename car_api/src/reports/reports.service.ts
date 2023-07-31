@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Report } from './entity/reports.entity';
 import { Repository } from 'typeorm';
-import { createReportDTO } from './dto/repots.dto';
+import { createReportDTO, getEstimateDto } from './dto/repots.dto';
 import { User } from 'src/users/entity/user.entity';
 
 @Injectable()
@@ -37,5 +37,19 @@ export class ReportsService {
     }
     report.approved = approve;
     return await this.reportRepo.save(report);
+  }
+
+  createEstimate({ make, lng, lat, year, mileage }: getEstimateDto) {
+    return this.reportRepo
+      .createQueryBuilder()
+      .select('*')
+      .where('make = :make', { make })
+      .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
+      .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+      .andWhere('year - :year BETWEEN -5 AND 5', { year })
+      .orderBy('ABS(mileage - :mileage)', 'DESC')
+      .setParameters({ mileage })
+      .limit(3)
+      .getRawMany();
   }
 }
